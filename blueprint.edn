@@ -1,0 +1,8 @@
+{:itonami.blueprint/id "cloud-itonami-8691"
+ :itonami.blueprint/name "Health Access Navigation"
+ :itonami.blueprint/isic-rev5 "8691"
+ :itonami.blueprint/domain :health/access-navigation
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:care-access :referral-completion :health-equity]
+ :itonami.blueprint/governor :health-access-governor
+ :itonami.blueprint/status :public-oss}
