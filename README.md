@@ -6,6 +6,14 @@ activities for medical, dental and other human-health services.
 This repository designs a forkable OSS business for care navigation, referral
 coordination, appointment support, and evidence-backed health access workflows.
 
+## Robotics premise
+
+All cloud-itonami verticals are designed on the premise that a **robot performs
+the physical domain work**. Here a triage and navigation robot performs check-in, vitals capture and wayfinding in care settings under an actor that proposes
+actions and an independent **Health Access Governor** that gates them. The governor never
+dispatches hardware itself; `:high`/`:safety-critical` actions (such as
+operating near patients, medical devices or vulnerable people) require human sign-off.
+
 ## Core Contract
 
 ```text

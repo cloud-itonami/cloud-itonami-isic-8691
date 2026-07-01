@@ -5,4 +5,5 @@
  :itonami.blueprint/license "AGPL-3.0-or-later"
  :itonami.blueprint/social-impact [:care-access :referral-completion :health-equity]
  :itonami.blueprint/governor :health-access-governor
+ :itonami.blueprint/robotics true
  :itonami.blueprint/status :public-oss}
