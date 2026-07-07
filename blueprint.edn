@@ -1,4 +1,4 @@
-{:itonami.blueprint/id "cloud-itonami-8691"
+{:itonami.blueprint/id "cloud-itonami-isic-8691"
  :itonami.blueprint/name "Health Access Navigation"
  :itonami.blueprint/isic-rev5 "8691"
  :itonami.blueprint/domain :health/access-navigation
@@ -6,4 +6,7 @@
  :itonami.blueprint/social-impact [:care-access :referral-completion :health-equity]
  :itonami.blueprint/governor :health-access-governor
  :itonami.blueprint/robotics true
- :itonami.blueprint/status :public-oss}
+ :itonami.blueprint/required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :optimization]
+ :itonami.blueprint/optional-technologies [:telemetry]
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/maturity :implemented}
