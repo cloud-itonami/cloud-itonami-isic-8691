@@ -60,6 +60,17 @@
   (and (number? eligibility-elapsed-days) (number? eligibility-validity-window-days)
        (> eligibility-elapsed-days eligibility-validity-window-days)))
 
+(defn eligibility-window-elapsed-exceeds-validity-checkable?
+  "Are both sides of `eligibility-window-elapsed-exceeds-validity?` actually recorded?
+
+  That predicate answers only `over` / `not over`, and its
+  `(and (number? ...) (number? ...) ...)` guard made every un-recorded
+  case fall through as `not over` -- an entity missing either figure
+  passed the limit check silently. Callers must ask this first:
+  un-checkable is not within limits."
+  [{:keys [eligibility-elapsed-days eligibility-validity-window-days]}]
+  (boolean (and (number? eligibility-elapsed-days) (number? eligibility-validity-window-days))))
+
 (defn register-referral
   "Validate + construct the REFERRAL registration DRAFT -- the
   navigation operator's own act of finalizing a real referral routing
