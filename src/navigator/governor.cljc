@@ -180,7 +180,17 @@
   [{:keys [op subject]} st]
   (when (= op :actuation/finalize-referral)
     (let [sk (store/seeker st subject)]
-      (when (registry/eligibility-window-elapsed-exceeds-validity? sk)
+      (cond
+        ;; Either figure missing or non-numeric: the limit cannot be
+        ;; evaluated, so it is not "within limits". This used to fall
+        ;; through as "not over" and proceed.
+        ;; Only when the entity EXISTS: a missing entity is a different
+        ;; violation that another gate owns, and firing here would mask it.
+        (and sk (not (registry/eligibility-window-elapsed-exceeds-validity-checkable? sk)))
+        [{:rule :eligibility-window-elapsed-exceeds-validity
+          :detail "上限判定に必要な値が記録されていない -- 限度内と断定できないため進めない"}]
+
+        (registry/eligibility-window-elapsed-exceeds-validity? sk)
         [{:rule :eligibility-window-elapsed-exceeds-validity
           :detail (str subject " の資格判定経過日数(" (:eligibility-elapsed-days sk)
                       ")が有効期間(" (:eligibility-validity-window-days sk) ")を超過")}]))))
