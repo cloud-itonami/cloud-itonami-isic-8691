@@ -119,7 +119,13 @@
       (str/replace "<" "&lt;")
       (str/replace ">" "&gt;")))
 
-(defn- nm [v] (if (keyword? v) (name v) (str v)))
+(defn- nm
+  "Keyword -> its FULLY QUALIFIED name (`:eligibility/verify` ->
+  \"eligibility/verify\"). Deliberately not `clojure.core/name`, which
+  drops the namespace and would render `:eligibility/verify` and
+  `:risk/screen` as the ambiguous \"verify\"/\"screen\"."
+  [v]
+  (if (keyword? v) (subs (str v) 1) (str v)))
 
 (defn- holds
   "Every HARD `:governor-hold` fact on the ledger."
@@ -326,7 +332,7 @@
 
 (defn- hard-rule-rows [fired]
   (mapv (fn [[rule scope detail]]
-          (format (str "        <tr><td><code>%s</code></td><td>%s</td><td>%s</td><td>%s</td></tr>")
+          (format "        <tr><td><code>%s</code></td><td>%s</td><td>%s</td><td>%s</td></tr>"
                   (esc (nm rule)) (esc scope) (esc detail)
                   (if (contains? fired rule)
                     "<span class=\"critical\">fired this run</span>"
@@ -433,7 +439,8 @@
      "    <h2>Jurisdiction spec-basis catalog</h2>\n"
      "    <p class=\"subtitle\">From <code>navigator.facts/catalog</code>. Coverage is reported honestly: of the "
      (esc (:requested cov)) " jurisdiction(s) present in the seeker directory above, <strong>"
-     (esc (:covered cov)) "</strong> have an official spec-basis"
+     (esc (:covered cov)) "</strong> " (if (= 1 (:covered cov)) "has" "have")
+     " an official spec-basis"
      (if (seq (:missing-jurisdictions cov))
        (str " and <span class=\"critical\">" (esc (str/join ", " (:missing-jurisdictions cov)))
             "</span> has none — which is exactly why its seeker HARD-holds above. A jurisdiction not in this table has NO spec-basis; the advisor must not invent one.")

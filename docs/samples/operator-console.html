@@ -2488,11 +2488,11 @@ img,svg { max-width: 100%; height: auto; }</style></head>
     <table>
       <thead><tr><th>Class</th><th>Rule</th><th>Op</th><th>Seeker</th><th>Detail (from the governor)</th><th>Advisor confidence</th></tr></thead>
       <tbody>
-        <tr><td><span class="critical">HARD</span></td><td><code>no-spec-basis</code></td><td><code>verify</code></td><td><code>seeker-2</code></td><td>公式spec-basisの引用が無い提案は医療アクセス・ナビゲーション運営基準として扱えない</td><td class="num">0.9</td></tr>
-        <tr><td><span class="critical">HARD</span></td><td><code>eligibility-window-elapsed-exceeds-validity</code></td><td><code>finalize-referral</code></td><td><code>seeker-3</code></td><td>seeker-3 の資格判定経過日数(100)が有効期間(90)を超過</td><td class="num">0.3</td></tr>
-        <tr><td><span class="critical">HARD</span></td><td><code>urgent-health-risk-unresolved</code></td><td><code>screen</code></td><td><code>seeker-4</code></td><td>未解決の緊急健康リスクがある状態での紹介確定提案は進められない</td><td class="num">0.95</td></tr>
-        <tr><td><span class="critical">HARD</span></td><td><code>already-referred</code></td><td><code>finalize-referral</code></td><td><code>seeker-1</code></td><td>seeker-1 は既に紹介確定済み</td><td class="num">0.9</td></tr>
-        <tr><td><span class="critical">HARD</span></td><td><code>already-disclosed</code></td><td><code>disclose-health-information</code></td><td><code>seeker-1</code></td><td>seeker-1 は既に健康情報開示済み</td><td class="num">0.9</td></tr>
+        <tr><td><span class="critical">HARD</span></td><td><code>no-spec-basis</code></td><td><code>eligibility/verify</code></td><td><code>seeker-2</code></td><td>公式spec-basisの引用が無い提案は医療アクセス・ナビゲーション運営基準として扱えない</td><td class="num">0.9</td></tr>
+        <tr><td><span class="critical">HARD</span></td><td><code>eligibility-window-elapsed-exceeds-validity</code></td><td><code>actuation/finalize-referral</code></td><td><code>seeker-3</code></td><td>seeker-3 の資格判定経過日数(100)が有効期間(90)を超過</td><td class="num">0.3</td></tr>
+        <tr><td><span class="critical">HARD</span></td><td><code>urgent-health-risk-unresolved</code></td><td><code>risk/screen</code></td><td><code>seeker-4</code></td><td>未解決の緊急健康リスクがある状態での紹介確定提案は進められない</td><td class="num">0.95</td></tr>
+        <tr><td><span class="critical">HARD</span></td><td><code>already-referred</code></td><td><code>actuation/finalize-referral</code></td><td><code>seeker-1</code></td><td>seeker-1 は既に紹介確定済み</td><td class="num">0.9</td></tr>
+        <tr><td><span class="critical">HARD</span></td><td><code>already-disclosed</code></td><td><code>actuation/disclose-health-information</code></td><td><code>seeker-1</code></td><td>seeker-1 は既に健康情報開示済み</td><td class="num">0.9</td></tr>
       </tbody>
     </table>
   </section>
@@ -2517,11 +2517,11 @@ img,svg { max-width: 100%; height: auto; }</style></head>
     <table>
       <thead><tr><th>Op</th><th>Gate</th></tr></thead>
       <tbody>
-        <tr><td><code>disclose-health-information</code></td><td><span class="critical">ALWAYS human approval</span> &middot; never auto at any phase (governor high-stakes AND absent from every phase's auto set &mdash; two independent layers)</td></tr>
-        <tr><td><code>finalize-referral</code></td><td><span class="critical">ALWAYS human approval</span> &middot; never auto at any phase (governor high-stakes AND absent from every phase's auto set &mdash; two independent layers)</td></tr>
-        <tr><td><code>intake</code></td><td><span class="ok">phase-3 auto-commit when governor-clean</span></td></tr>
-        <tr><td><code>screen</code></td><td><span class="warn">phase-3: human approval (not auto-eligible)</span></td></tr>
-        <tr><td><code>verify</code></td><td><span class="warn">phase-3: human approval (not auto-eligible)</span></td></tr>
+        <tr><td><code>actuation/disclose-health-information</code></td><td><span class="critical">ALWAYS human approval</span> &middot; never auto at any phase (governor high-stakes AND absent from every phase's auto set &mdash; two independent layers)</td></tr>
+        <tr><td><code>actuation/finalize-referral</code></td><td><span class="critical">ALWAYS human approval</span> &middot; never auto at any phase (governor high-stakes AND absent from every phase's auto set &mdash; two independent layers)</td></tr>
+        <tr><td><code>eligibility/verify</code></td><td><span class="warn">phase-3: human approval (not auto-eligible)</span></td></tr>
+        <tr><td><code>risk/screen</code></td><td><span class="warn">phase-3: human approval (not auto-eligible)</span></td></tr>
+        <tr><td><code>seeker/intake</code></td><td><span class="ok">phase-3 auto-commit when governor-clean</span></td></tr>
       </tbody>
     </table>
   </section>
@@ -2532,15 +2532,15 @@ img,svg { max-width: 100%; height: auto; }</style></head>
       <thead><tr><th>Phase</th><th>Label</th><th>May write</th><th>May auto-commit</th></tr></thead>
       <tbody>
         <tr><td class="num">0</td><td>read-only</td><td><span class="muted">none</span></td><td><span class="muted">none</span></td></tr>
-        <tr><td class="num">1</td><td>assisted-intake</td><td><code>intake</code></td><td><span class="muted">none</span></td></tr>
-        <tr><td class="num">2</td><td>assisted-verify</td><td><code>intake</code>, <code>screen</code>, <code>verify</code></td><td><span class="muted">none</span></td></tr>
-        <tr><td class="num">3</td><td>supervised-auto</td><td><code>disclose-health-information</code>, <code>finalize-referral</code>, <code>intake</code>, <code>screen</code>, <code>verify</code></td><td><code>intake</code></td></tr>
+        <tr><td class="num">1</td><td>assisted-intake</td><td><code>seeker/intake</code></td><td><span class="muted">none</span></td></tr>
+        <tr><td class="num">2</td><td>assisted-verify</td><td><code>eligibility/verify</code>, <code>risk/screen</code>, <code>seeker/intake</code></td><td><span class="muted">none</span></td></tr>
+        <tr><td class="num">3</td><td>supervised-auto</td><td><code>actuation/disclose-health-information</code>, <code>actuation/finalize-referral</code>, <code>eligibility/verify</code>, <code>risk/screen</code>, <code>seeker/intake</code></td><td><code>seeker/intake</code></td></tr>
       </tbody>
     </table>
   </section>
   <section class="card">
     <h2>Jurisdiction spec-basis catalog</h2>
-    <p class="subtitle">From <code>navigator.facts/catalog</code>. Coverage is reported honestly: of the 2 jurisdiction(s) present in the seeker directory above, <strong>1</strong> have an official spec-basis and <span class="critical">ATL</span> has none — which is exactly why its seeker HARD-holds above. A jurisdiction not in this table has NO spec-basis; the advisor must not invent one.</p>
+    <p class="subtitle">From <code>navigator.facts/catalog</code>. Coverage is reported honestly: of the 2 jurisdiction(s) present in the seeker directory above, <strong>1</strong> has an official spec-basis and <span class="critical">ATL</span> has none — which is exactly why its seeker HARD-holds above. A jurisdiction not in this table has NO spec-basis; the advisor must not invent one.</p>
     <table>
       <thead><tr><th>ISO3</th><th>Jurisdiction</th><th>Owner authority</th><th>Legal basis</th><th>Required evidence</th><th>Provenance</th></tr></thead>
       <tbody>
@@ -2577,12 +2577,12 @@ img,svg { max-width: 100%; height: auto; }</style></head>
     <table>
       <thead><tr><th>Op</th><th>Seeker</th><th>Approver</th></tr></thead>
       <tbody>
-        <tr><td><code>intake</code></td><td><code>seeker-1</code></td><td><span class="muted">no human approver &mdash; phase-3 auto-commit</span></td></tr>
-        <tr><td><code>verify</code></td><td><code>seeker-1</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
-        <tr><td><code>screen</code></td><td><code>seeker-1</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
-        <tr><td><code>finalize-referral</code></td><td><code>seeker-1</code></td><td><span class="warn">op-1</span> &mdash; audit only, not retained in record</td></tr>
-        <tr><td><code>disclose-health-information</code></td><td><code>seeker-1</code></td><td><span class="warn">op-1</span> &mdash; audit only, not retained in record</td></tr>
-        <tr><td><code>verify</code></td><td><code>seeker-3</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
+        <tr><td><code>seeker/intake</code></td><td><code>seeker-1</code></td><td><span class="muted">no human approver &mdash; phase-3 auto-commit</span></td></tr>
+        <tr><td><code>eligibility/verify</code></td><td><code>seeker-1</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
+        <tr><td><code>risk/screen</code></td><td><code>seeker-1</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
+        <tr><td><code>actuation/finalize-referral</code></td><td><code>seeker-1</code></td><td><span class="warn">op-1</span> &mdash; audit only, not retained in record</td></tr>
+        <tr><td><code>actuation/disclose-health-information</code></td><td><code>seeker-1</code></td><td><span class="warn">op-1</span> &mdash; audit only, not retained in record</td></tr>
+        <tr><td><code>eligibility/verify</code></td><td><code>seeker-3</code></td><td><span class="ok">op-1</span> &mdash; retained in record</td></tr>
       </tbody>
     </table>
   </section>
@@ -2592,17 +2592,17 @@ img,svg { max-width: 100%; height: auto; }</style></head>
     <table>
       <thead><tr><th>Fact</th><th>Op</th><th>Seeker</th><th>Basis</th></tr></thead>
       <tbody>
-        <tr><td>committed</td><td><code>intake</code></td><td><code>seeker-1</code></td><td>id, seeker-name</td></tr>
-        <tr><td>committed</td><td><code>verify</code></td><td><code>seeker-1</code></td><td>生活保護法 (Public Assistance Act, medical assistance) / 個人情報の保護に関する法律 (APPI, 要配慮個人情報), https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/seikatsuhogo/index.html</td></tr>
-        <tr><td>committed</td><td><code>screen</code></td><td><code>seeker-1</code></td><td>urgent-risk-check</td></tr>
-        <tr><td>committed</td><td><code>finalize-referral</code></td><td><code>seeker-1</code></td><td>seeker-1</td></tr>
-        <tr><td>committed</td><td><code>disclose-health-information</code></td><td><code>seeker-1</code></td><td>seeker-1</td></tr>
-        <tr><td>governor-hold</td><td><code>verify</code></td><td><code>seeker-2</code></td><td>no-spec-basis</td></tr>
-        <tr><td>committed</td><td><code>verify</code></td><td><code>seeker-3</code></td><td>生活保護法 (Public Assistance Act, medical assistance) / 個人情報の保護に関する法律 (APPI, 要配慮個人情報), https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/seikatsuhogo/index.html</td></tr>
-        <tr><td>governor-hold</td><td><code>finalize-referral</code></td><td><code>seeker-3</code></td><td>eligibility-window-elapsed-exceeds-validity</td></tr>
-        <tr><td>governor-hold</td><td><code>screen</code></td><td><code>seeker-4</code></td><td>urgent-health-risk-unresolved</td></tr>
-        <tr><td>governor-hold</td><td><code>finalize-referral</code></td><td><code>seeker-1</code></td><td>already-referred</td></tr>
-        <tr><td>governor-hold</td><td><code>disclose-health-information</code></td><td><code>seeker-1</code></td><td>already-disclosed</td></tr>
+        <tr><td>committed</td><td><code>seeker/intake</code></td><td><code>seeker-1</code></td><td>id, seeker-name</td></tr>
+        <tr><td>committed</td><td><code>eligibility/verify</code></td><td><code>seeker-1</code></td><td>生活保護法 (Public Assistance Act, medical assistance) / 個人情報の保護に関する法律 (APPI, 要配慮個人情報), https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/seikatsuhogo/index.html</td></tr>
+        <tr><td>committed</td><td><code>risk/screen</code></td><td><code>seeker-1</code></td><td>urgent-risk-check</td></tr>
+        <tr><td>committed</td><td><code>actuation/finalize-referral</code></td><td><code>seeker-1</code></td><td>seeker-1</td></tr>
+        <tr><td>committed</td><td><code>actuation/disclose-health-information</code></td><td><code>seeker-1</code></td><td>seeker-1</td></tr>
+        <tr><td>governor-hold</td><td><code>eligibility/verify</code></td><td><code>seeker-2</code></td><td>no-spec-basis</td></tr>
+        <tr><td>committed</td><td><code>eligibility/verify</code></td><td><code>seeker-3</code></td><td>生活保護法 (Public Assistance Act, medical assistance) / 個人情報の保護に関する法律 (APPI, 要配慮個人情報), https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/seikatsuhogo/index.html</td></tr>
+        <tr><td>governor-hold</td><td><code>actuation/finalize-referral</code></td><td><code>seeker-3</code></td><td>eligibility-window-elapsed-exceeds-validity</td></tr>
+        <tr><td>governor-hold</td><td><code>risk/screen</code></td><td><code>seeker-4</code></td><td>urgent-health-risk-unresolved</td></tr>
+        <tr><td>governor-hold</td><td><code>actuation/finalize-referral</code></td><td><code>seeker-1</code></td><td>already-referred</td></tr>
+        <tr><td>governor-hold</td><td><code>actuation/disclose-health-information</code></td><td><code>seeker-1</code></td><td>already-disclosed</td></tr>
       </tbody>
     </table>
   </section>
