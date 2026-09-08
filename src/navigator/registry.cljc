@@ -32,7 +32,7 @@
   `navigator.operation`'s `:actuation/finalize-referral`/`:actuation/
   disclose-health-information`, always human-gated -- see README
   `Actuation`)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED -- signature is the
@@ -87,7 +87,7 @@
     (throw (ex-info "referral: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "referral: sequence must be >= 0" {})))
-  (let [referral-number (str (str/upper-case jurisdiction) "-REF-" (zero-pad sequence 6))
+  (let [referral-number (str (str/upper jurisdiction) "-REF-" (zero-pad sequence 6))
         record {"record_id" referral-number
                 "kind" "referral-draft"
                 "seeker_id" seeker-id
@@ -112,7 +112,7 @@
     (throw (ex-info "disclosure: jurisdiction required" {})))
   (when (< sequence 0)
     (throw (ex-info "disclosure: sequence must be >= 0" {})))
-  (let [disclosure-number (str (str/upper-case jurisdiction) "-DIS-" (zero-pad sequence 6))
+  (let [disclosure-number (str (str/upper jurisdiction) "-DIS-" (zero-pad sequence 6))
         record {"record_id" disclosure-number
                 "kind" "disclosure-draft"
                 "seeker_id" seeker-id
