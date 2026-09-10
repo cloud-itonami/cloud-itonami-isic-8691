@@ -106,7 +106,7 @@ referral`/`:actuation/disclose-health-information` high-stakes gate
 and `navigator.phase`'s phase table, which never puts `:actuation/
 finalize-referral`/`:actuation/disclose-health-information` in any
 phase's `:auto` set) -- see `navigator.phase`'s docstring and
-`test/navigator/phase_test.clj`'s `finalize-referral-never-auto-at-
+`test/navigator/phase_test.kotoba`'s `finalize-referral-never-auto-at-
 any-phase`/`disclose-health-information-never-auto-at-any-phase`. The
 actor may draft, check and recommend; a human care-navigator/clinical
 lead is always the one who actually finalizes a referral or discloses
@@ -201,14 +201,14 @@ stack only -- no bespoke domain capability lib to reference at all.
 
 | File | Role |
 |---|---|
-| `src/navigator/store.cljc` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + separate referral/disclosure history. No dynamically-filed sub-record -- both actuation ops act directly on a pre-seeded seeker, and the double-actuation guards check dedicated `:referral-finalized?`/`:disclosure-made?` booleans rather than a `:status` value |
-| `src/navigator/registry.cljc` | Referral + disclosure draft records, plus `eligibility-window-elapsed-exceeds-validity?` -- the SIXTH instance of this fleet's MAXIMUM-ceiling check family (`facility`/`school`/`card`/`recovery`/`care` established the first five) |
-| `src/navigator/facts.cljc` | Per-jurisdiction health-access-navigation/eligibility-determination catalog with an official spec-basis citation per entry, honest coverage reporting |
-| `src/navigator/navigatoradvisor.cljc` | **NavigatorOps-LLM** -- `mock-advisor` ‖ `llm-advisor`; intake/eligibility-verification/urgent-risk-screening/referral-finalization/disclosure proposals |
-| `src/navigator/governor.cljc` | **Health Access Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · eligibility-window-elapsed-exceeds-validity, pure ground-truth ceiling recompute · urgent-health-risk-unresolved, unconditional evaluation, the THIRTY-FIFTH grounding of this discipline, distinct from `casework`'s fraud-risk-flag concept and `care`'s/`congregation`'s safeguarding concepts) + already-referred/already-disclosed guards + 1 soft (confidence/actuation gate) |
-| `src/navigator/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised (both referral finalization and health-information disclosure always human; seeker intake is the ONLY auto-eligible op, no direct capital risk) |
-| `src/navigator/operation.cljc` | **OperationActor** -- langgraph-clj StateGraph |
-| `src/navigator/sim.cljc` | demo driver |
+| `src/navigator/store.kotoba` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + separate referral/disclosure history. No dynamically-filed sub-record -- both actuation ops act directly on a pre-seeded seeker, and the double-actuation guards check dedicated `:referral-finalized?`/`:disclosure-made?` booleans rather than a `:status` value |
+| `src/navigator/registry.kotoba` | Referral + disclosure draft records, plus `eligibility-window-elapsed-exceeds-validity?` -- the SIXTH instance of this fleet's MAXIMUM-ceiling check family (`facility`/`school`/`card`/`recovery`/`care` established the first five) |
+| `src/navigator/facts.kotoba` | Per-jurisdiction health-access-navigation/eligibility-determination catalog with an official spec-basis citation per entry, honest coverage reporting |
+| `src/navigator/navigatoradvisor.kotoba` | **NavigatorOps-LLM** -- `mock-advisor` ‖ `llm-advisor`; intake/eligibility-verification/urgent-risk-screening/referral-finalization/disclosure proposals |
+| `src/navigator/governor.kotoba` | **Health Access Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · eligibility-window-elapsed-exceeds-validity, pure ground-truth ceiling recompute · urgent-health-risk-unresolved, unconditional evaluation, the THIRTY-FIFTH grounding of this discipline, distinct from `casework`'s fraud-risk-flag concept and `care`'s/`congregation`'s safeguarding concepts) + already-referred/already-disclosed guards + 1 soft (confidence/actuation gate) |
+| `src/navigator/phase.kotoba` | **Phase 0→3** -- read-only → assisted intake → assisted verify → supervised (both referral finalization and health-information disclosure always human; seeker intake is the ONLY auto-eligible op, no direct capital risk) |
+| `src/navigator/operation.kotoba` | **OperationActor** -- langgraph-clj StateGraph |
+| `src/navigator/sim.kotoba` | demo driver |
 | `test/navigator/*_test.clj` | governor contract · phase invariants · store parity · registry conformance · facts coverage |
 
 ## Business-process coverage (honest)
