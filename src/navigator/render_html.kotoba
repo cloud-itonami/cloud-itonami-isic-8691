@@ -11,7 +11,7 @@
   It drives the REAL actor stack (`navigator.operation` ->
   `navigator.governor` -> `navigator.store`, through langgraph
   `g/run*`) over a scenario adapted from this repo's own
-  `navigator.sim` demo driver (`clojure -M:dev:run`, confirmed BEFORE
+  `navigator.sim` demo driver (`kbb -M:dev:run`, confirmed BEFORE
   this file was written to produce a sensible ledger against the real
   seeded seeker ids `seeker-1`..`seeker-4`). Every entity, number and
   identifier on the page is read back out of the store after the run
@@ -27,7 +27,7 @@
   evidence of a governor, so this is enforced at build time rather
   than left to convention (precedent: `cloud-itonami-isic-2513`).
 
-  Usage: `clojure -M:dev:render-html [out-file]`
+  Usage: `kbb -M:dev:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
   (:require [jp-go-dds.skin]
             [kotoba.lang.text :as str]
@@ -375,7 +375,7 @@
      ;; ---- seekers ----
      "  <section class=\"card\">\n"
      "    <h2>Seeker directory</h2>\n"
-     "    <p class=\"subtitle\">Build-time snapshot generated from <code>navigator.store</code> through the real actor graph by <code>navigator.render-html</code> (<code>clojure -M:dev:render-html</code>). Eligibility window is elapsed days / the seeker's OWN recorded validity window.</p>\n"
+     "    <p class=\"subtitle\">Build-time snapshot generated from <code>navigator.store</code> through the real actor graph by <code>navigator.render-html</code> (<code>kbb -M:dev:render-html</code>). Eligibility window is elapsed days / the seeker's OWN recorded validity window.</p>\n"
      "    <table>\n"
      "      <thead><tr><th>Seeker</th><th>Name</th><th>Jurisdiction</th><th>Eligibility window</th><th>Urgent health risk</th><th>Lifecycle</th><th>Referral no.</th><th>Disclosure no.</th><th>Last op</th></tr></thead>\n"
      "      <tbody>\n"
