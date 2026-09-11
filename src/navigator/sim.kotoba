@@ -1,5 +1,5 @@
 (ns navigator.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean seeker through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean seeker through
   intake -> eligibility verification -> urgent-health-risk screening
   -> referral-finalization proposal (always escalates) -> human
   approval -> commit, then through health-information-disclosure
