@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:dev:physics` runs it.
+;;
+;; README "Robotics premise": a triage and navigation robot performs
+;; check-in, vitals capture and wayfinding in care settings (ISIC 8691
+;; context: health access / patient navigation). Its physical work: walking a
+;; patient to the right department (and stopping short when the patient
+;; stops or someone crosses), and presenting the blood-pressure cuff /
+;; thermometer to a seated patient with its arm.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-8691"
+ :cases
+ [{:id :wayfinding-escort-stop
+   :kind :transport
+   :procedure "robot leads a patient down the hospital corridor to the department and brakes when a person crosses its path"
+   :params {:mass-kg 40.0 :payload-kg 2.0 :distance-m 60.0 :a-max-mps2 0.4
+            :brake-decel-mps2 1.0 :drive-force-n 150.0 :crr 0.015
+            :cog-height-m 0.60 :support-half-length-m 0.25 :max-time-s 3000.0}
+   :sweep {:param :v-max-mps :values [0.5 0.7 0.9 1.1 1.3]}
+   :quantity :stopping-distance-m
+   :limit {:max 0.40 :basis "estimate: stop within about half a stride of detection among patients and visitors"}
+   :boundary {:lo 0.2 :hi 2.0}}
+  {:id :vitals-cuff-present
+   :kind :manipulator
+   :procedure "arm lifts the blood-pressure cuff and thermometer module from the robot's tray and holds it out to a seated patient"
+   :params {:l1-m 0.35 :l2-m 0.30 :m1-kg 2.5 :m2-kg 1.8
+            :from [0.15 0.20] :to [0.55 0.10] :duration-s 1.5 :steps 400}
+   :sweep {:param :payload-kg :values [0.3 0.6 1.0 1.5 2.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 20.0 :basis "estimate: continuous shoulder torque of a 3 kg-class service arm working next to patients"}
+   :boundary {:lo 0.1 :hi 10.0}}]}
